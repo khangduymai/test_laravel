@@ -11,6 +11,43 @@
 |
 */
 
+/*
 Route::get('/', function () {
     return view('welcome');
 });
+
+Route::get('contact',function(){
+  return view('contact');
+});
+
+
+Route::get('about', function () {
+  return view('about');
+});
+*/
+
+//another way to call the view
+
+Route::view('/', 'home');
+Route::view('/contact-us', 'contact');
+Route::view('/about', 'about');
+
+//passing data to view
+/* 
+Route::get('customers', function(){
+  $customers =['Khang Mai', 'Ivan Castro', 'Q Do', 'Anakin Skywalker', 'Superman'];
+
+  return view('internals.customers', [
+    'customers' => $customers,
+  ]);
+}); */
+
+//create route with controler to return a view
+
+Route::get('/customers', 'CustomersController@index');
+Route::get('/customers/create', 'CustomersController@create');
+Route::post('/customers', 'CustomersController@store');
+Route::get('/customers/{customer}', 'CustomersController@show');
+Route::get('/customers/{customer}/edit', 'CustomersController@edit');
+Route::patch('/customers/{customer}', 'CustomersController@update');
+Route::delete('/customers/{customer}', 'CustomersController@destroy');
