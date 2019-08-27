@@ -29,7 +29,11 @@ Route::get('about', function () {
 //another way to call the view
 
 Route::view('/', 'home');
-Route::view('/contact-us', 'contact');
+
+//Route::view('/contact-us', 'contact');
+Route::get('/contact', 'ContactFormController@create');
+Route::post('/contact', 'ContactFormController@store');
+
 Route::view('/about', 'about');
 
 //passing data to view
