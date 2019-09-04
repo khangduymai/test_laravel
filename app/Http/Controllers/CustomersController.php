@@ -5,9 +5,25 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Customer;
 use App\Company;
+use App\Events\NewCustomerHasRegisteredEvent;
+use App\Mail\WelcomeNewUserMail;
+use Illuminate\Support\Facades\Mail;
 
 class CustomersController extends Controller
 {
+    //Creating a class construct to apply middleware 
+    //Note: we can apply only() and except() for the middleware
+    /*
+    public function __construct()
+    {
+      $this->middleware('auth')->except('index');
+    } 
+    */
+    public function __construct()
+    {
+      $this->middleware('auth');
+    } 
+
     public function index(){
       
       //$customers = ['Khang Mai', 'Ivan Castro', 'Q Do', 'Anakin Skywalker', 'Superman'];
@@ -49,15 +65,27 @@ class CustomersController extends Controller
 
       //dd($validateInput);
 
-      Customer::create($validateInput);
+      $customer=Customer::create($validateInput);
 
-/*       $newCustomer = new Customer();
+      //create an event after new customer created
+      event(new NewCustomerHasRegisteredEvent($customer));
+      
+      
+      //Registering to newsletter. This will be moved to Listener class in \App\Listeners
+      //dump('Registering to newsletter');
+
+      //Slack notification to Admin. This will be moved to Listener class in \App\Listeners
+      //dump('Slack notification here');
+
+      /*       
+      $newCustomer = new Customer();
       $newCustomer->name=$request->name;
       $newCustomer->email = $request->email;
       $newCustomer->active = $request->active;
-      $newCustomer->save(); */
+      $newCustomer->save();
+      return redirect('/customers');
+      */
 
-      //return redirect('/customers');
       return redirect('/customers');
 
     }

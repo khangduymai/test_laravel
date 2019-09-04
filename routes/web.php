@@ -48,6 +48,7 @@ Route::get('customers', function(){
 
 //create route with controler to return a view
 
+
 Route::get('/customers', 'CustomersController@index');
 Route::get('/customers/create', 'CustomersController@create');
 Route::post('/customers', 'CustomersController@store');
@@ -55,3 +56,13 @@ Route::get('/customers/{customer}', 'CustomersController@show');
 Route::get('/customers/{customer}/edit', 'CustomersController@edit');
 Route::patch('/customers/{customer}', 'CustomersController@update');
 Route::delete('/customers/{customer}', 'CustomersController@destroy');
+ 
+
+//Create resouce customers
+//After create a resouce customer, we can apply middleware as route level
+//Another way to apply middleware is at CustomersController level (please see CustomersController file for details)
+//Route::resource('customers', 'CustomersController')->middleware('auth');
+
+Auth::routes();
+
+Route::get('/home', 'HomeController@index')->name('home');

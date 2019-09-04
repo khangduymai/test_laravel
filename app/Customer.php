@@ -20,6 +20,19 @@ class Customer extends Model
     return $this->activeOption() [$attribute];
   }
 
+  /*
+  public function getActiveOoption($attribute) {
+    $attributeOptions = [
+      1 => 'Hello',
+      2 => 'hi',
+      3 => 'chao'
+    ];
+
+    return $attributeOptions[$attribute];
+  }
+  */
+  
+
   //declare local scope using for where clause in ORM
     public function scopeActive($querry){
       return $querry->where('active', 1);
@@ -37,8 +50,9 @@ class Customer extends Model
 
   public function activeOption(){
     return [
+      1 => 'Active',
       0 => 'Inactive',
-      1 => 'Active'
+      2 => 'In-process'
     ];
   }
    

@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Mail\ContactFormMail;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Mail;
 
 class ContactFormController extends Controller
 {
@@ -20,5 +22,14 @@ class ContactFormController extends Controller
     
     //dd($dataValidation);
     //dd(request()->all());
+    Mail::to('test@test.com')->send(new ContactFormMail($dataValidation));
+
+    session()->flash('message', 'Thanks for your message. We\'ll be in touch!');
+
+    return redirect('contact');
+
+    //using with() function to flash the message
+    //return redirect('contact')->with('message','Thanks for your message. We\'ll be in touch!');
+
   }
 }
